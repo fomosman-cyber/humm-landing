@@ -14,12 +14,13 @@
 }
 
 * {
-  font-family: 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: 'Helvetica Regular', 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.font-helvetica,
-.font-helvetica * {
-  font-family: 'Helvetica Regular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.font-serif-italic,
+.font-serif-italic * {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
 }
 
 .liquid-glass {
