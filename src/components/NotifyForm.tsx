@@ -40,11 +40,12 @@ export default function NotifyForm() {
 
   return (
     <motion.section
+      id="notify"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-      className="liquid-glass w-full max-w-3xl rounded-3xl px-6 sm:px-8 md:px-10 py-8 sm:py-10 md:py-12 text-center text-white/80 my-16 sm:my-24"
+      className="liquid-glass w-full max-w-3xl rounded-3xl px-6 sm:px-8 md:px-10 py-8 sm:py-10 md:py-12 text-center text-white/80 my-16 sm:my-24 scroll-mt-20"
       aria-labelledby="notify-title"
     >
       <span className="text-[10px] uppercase tracking-[0.3em] text-white/50">

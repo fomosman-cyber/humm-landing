@@ -13,6 +13,18 @@ interface ColorOption {
   shopUrl: string
 }
 
+const SHOPIFY_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'www.humm-amsterdam.nl'
+
+const buildShopUrl = (
+  fullUrl: string | undefined,
+  variantId: string | undefined,
+  fallbackHandle: string,
+): string => {
+  if (fullUrl) return fullUrl
+  if (variantId) return `https://${SHOPIFY_DOMAIN}/cart/${variantId}:1`
+  return `https://${SHOPIFY_DOMAIN}/products/${fallbackHandle}`
+}
+
 const COLORS: ColorOption[] = [
   {
     key: 'creme',
@@ -21,9 +33,11 @@ const COLORS: ColorOption[] = [
     ring: '#DEDBC8',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/man-in-white-and-light-tan-outfit.jpg?v=1771012404&width=2731',
-    shopUrl:
-      import.meta.env.VITE_SHOPIFY_URL_CREME ||
-      'https://www.humm-amsterdam.nl/products/golden-100-creme',
+    shopUrl: buildShopUrl(
+      import.meta.env.VITE_SHOPIFY_URL_CREME,
+      import.meta.env.VITE_SHOPIFY_VARIANT_CREME,
+      'golden-100-creme',
+    ),
   },
   {
     key: 'black',
@@ -32,9 +46,11 @@ const COLORS: ColorOption[] = [
     ring: '#5A5A5A',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/model-deep-in-thought.jpg?v=1771355823&width=2730',
-    shopUrl:
-      import.meta.env.VITE_SHOPIFY_URL_BLACK ||
-      'https://www.humm-amsterdam.nl/products/golden-100-black',
+    shopUrl: buildShopUrl(
+      import.meta.env.VITE_SHOPIFY_URL_BLACK,
+      import.meta.env.VITE_SHOPIFY_VARIANT_BLACK,
+      'golden-100-black',
+    ),
   },
 ]
 
