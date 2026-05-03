@@ -131,12 +131,12 @@ export default function App() {
           'x5-playsinline': 'true',
         } as Record<string, string>)}
         src={VIDEO_URL}
-        className="fixed inset-0 w-full h-full object-cover -z-10"
+        className="fixed inset-0 w-full h-full object-cover z-0"
         style={{ transform: 'translateZ(0)' }}
       />
-      <div className="fixed inset-0 bg-black/55 pointer-events-none -z-[1]" />
+      <div className="fixed inset-0 bg-black/55 pointer-events-none z-[1]" />
 
-      <main className="relative z-0 w-full min-h-screen overflow-x-hidden flex flex-col items-center font-sans selection:bg-white/20 selection:text-white">
+      <main className="relative z-10 w-full min-h-screen overflow-x-hidden flex flex-col items-center font-sans selection:bg-white/20 selection:text-white">
         <div className="relative w-full flex flex-col items-center px-4 sm:px-6 md:px-10">
           <Hero onOpenContact={() => setContact({ open: true })} />
           <ProductSelector />

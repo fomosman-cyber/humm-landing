@@ -20,16 +20,12 @@ export default function Hero({ onOpenContact }: Props) {
   return (
     <section className="relative w-full flex flex-col items-center pt-6 pb-20 sm:pb-32">
       <nav className="w-full max-w-7xl flex items-center justify-between px-2 mb-16 sm:mb-24 text-white">
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="text-sm sm:text-base font-medium tracking-tight"
         >
           HUMM
-        </a>
+        </button>
         <ul className="hidden md:flex items-center gap-8 lg:gap-12 text-xs">
           <li>
             <a
