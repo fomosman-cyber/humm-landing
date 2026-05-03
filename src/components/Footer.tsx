@@ -1,30 +1,60 @@
 import { motion } from 'framer-motion'
-import { Facebook, Instagram, Music2, Twitter, Youtube, type LucideIcon } from 'lucide-react'
+import { Instagram, Music2, type LucideIcon } from 'lucide-react'
 
-const LINK_COLUMNS: { heading: string; items: string[] }[] = [
-  {
-    heading: 'The Drop',
-    items: ['The Golden 100', 'Lookbook', 'Numbering 001–100', 'Materials & Care', 'Future Drops'],
-  },
-  {
-    heading: 'The Story',
-    items: ['Origin', 'The Collective', 'Press', 'Join the Team'],
-  },
-  {
-    heading: 'Concierge',
-    items: ['Get in Touch', 'Privacy', 'Terms of Sale', 'Report a Concern'],
-  },
-]
+interface Props {
+  onOpenContact: (subject?: string) => void
+  onOpenPrivacy: () => void
+  onOpenTerms: () => void
+}
+
+interface LinkItem {
+  label: string
+  onClick?: () => void
+  href?: string
+  external?: boolean
+}
 
 const SOCIALS: { Icon: LucideIcon; href: string; label: string }[] = [
-  { Icon: Music2, href: '#', label: 'TikTok' },
-  { Icon: Facebook, href: '#', label: 'Facebook' },
-  { Icon: Twitter, href: '#', label: 'X / Twitter' },
-  { Icon: Youtube, href: '#', label: 'YouTube' },
+  { Icon: Music2, href: 'https://www.tiktok.com/@humm.amsterdam', label: 'TikTok' },
   { Icon: Instagram, href: 'https://instagram.com/humm.amsterdam', label: 'Instagram' },
 ]
 
-export default function Footer() {
+const scrollTo = (selector: string) => () => {
+  document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+export default function Footer({ onOpenContact, onOpenPrivacy, onOpenTerms }: Props) {
+  const columns: { heading: string; items: LinkItem[] }[] = [
+    {
+      heading: 'The Drop',
+      items: [
+        { label: 'The Golden 100', onClick: scrollTo('#drop') },
+        { label: 'Lookbook', href: 'https://instagram.com/humm.amsterdam', external: true },
+        { label: 'Numbering 001–100', onClick: scrollTo('#details') },
+        { label: 'Materials & Care', onClick: scrollTo('#details') },
+        { label: 'Future Drops', onClick: () => onOpenContact('HUMM — Future Drops') },
+      ],
+    },
+    {
+      heading: 'The Story',
+      items: [
+        { label: 'Origin', onClick: scrollTo('#about') },
+        { label: 'The Collective', onClick: scrollTo('#about') },
+        { label: 'Press', onClick: () => onOpenContact('HUMM — Press inquiry') },
+        { label: 'Join the Team', onClick: () => onOpenContact('HUMM — Join the team') },
+      ],
+    },
+    {
+      heading: 'Concierge',
+      items: [
+        { label: 'Get in Touch', onClick: () => onOpenContact() },
+        { label: 'Privacy', onClick: onOpenPrivacy },
+        { label: 'Terms of Sale', onClick: onOpenTerms },
+        { label: 'Report a Concern', onClick: () => onOpenContact('HUMM — Report a concern') },
+      ],
+    },
+  ]
+
   return (
     <motion.footer
       initial={{ opacity: 0, y: 40 }}
@@ -56,19 +86,35 @@ export default function Footer() {
         </div>
 
         <div className="md:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {LINK_COLUMNS.map((col) => (
+          {columns.map((col) => (
             <div key={col.heading}>
               <h3 className="text-sm uppercase tracking-wider text-white font-medium mb-4">
                 {col.heading}
               </h3>
               <ul className="text-xs space-y-2">
-                {col.items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="hover:text-white transition-colors">
-                      {item}
-                    </a>
-                  </li>
-                ))}
+                {col.items.map((item) =>
+                  item.onClick ? (
+                    <li key={item.label}>
+                      <button
+                        onClick={item.onClick}
+                        className="text-left hover:text-white transition-colors"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ) : (
+                    <li key={item.label}>
+                      <a
+                        href={item.href}
+                        target={item.external ? '_blank' : undefined}
+                        rel={item.external ? 'noreferrer noopener' : undefined}
+                        className="hover:text-white transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
           ))}
@@ -88,8 +134,8 @@ export default function Footer() {
               <a
                 key={label}
                 href={href}
-                target={href.startsWith('http') ? '_blank' : undefined}
-                rel={href.startsWith('http') ? 'noreferrer noopener' : undefined}
+                target="_blank"
+                rel="noreferrer noopener"
                 aria-label={label}
                 className="opacity-70 hover:opacity-100 transition-colors hover:text-white"
               >

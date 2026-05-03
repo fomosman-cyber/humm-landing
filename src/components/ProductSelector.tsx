@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ShoppingBag } from 'lucide-react'
 
-type ColorKey = 'creme' | 'olive' | 'black'
+type ColorKey = 'creme' | 'black'
 
 interface ColorOption {
   key: ColorKey
@@ -10,6 +10,7 @@ interface ColorOption {
   swatch: string
   ring: string
   image: string
+  shopUrl: string
 }
 
 const COLORS: ColorOption[] = [
@@ -20,14 +21,9 @@ const COLORS: ColorOption[] = [
     ring: '#DEDBC8',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/man-in-white-and-light-tan-outfit.jpg?v=1771012404&width=2731',
-  },
-  {
-    key: 'olive',
-    name: 'Olive',
-    swatch: '#5C5F3D',
-    ring: '#9DA079',
-    image:
-      'https://www.humm-amsterdam.nl/cdn/shop/files/model-in-latte-colored-hoodie.jpg?v=1771355773&width=3277',
+    shopUrl:
+      import.meta.env.VITE_SHOPIFY_URL_CREME ||
+      'https://www.humm-amsterdam.nl/products/golden-100-creme',
   },
   {
     key: 'black',
@@ -36,6 +32,9 @@ const COLORS: ColorOption[] = [
     ring: '#5A5A5A',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/model-deep-in-thought.jpg?v=1771355823&width=2730',
+    shopUrl:
+      import.meta.env.VITE_SHOPIFY_URL_BLACK ||
+      'https://www.humm-amsterdam.nl/products/golden-100-black',
   },
 ]
 
@@ -47,10 +46,11 @@ export default function ProductSelector() {
 
   return (
     <motion.section
+      id="drop"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.6, ease: easeOut }}
-      className="liquid-glass w-full max-w-5xl rounded-3xl p-6 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"
+      className="liquid-glass w-full max-w-5xl rounded-3xl p-6 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 scroll-mt-20"
     >
       <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-black/40">
         <AnimatePresence mode="wait">
@@ -66,7 +66,7 @@ export default function ProductSelector() {
           />
         </AnimatePresence>
         <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-white/80">
-          GD100 · 047 / 100 left
+          GD100 · Limited to 100
         </div>
       </div>
 
@@ -79,7 +79,7 @@ export default function ProductSelector() {
             HUMM <span className="font-serif-italic font-normal text-white/80">Tee.</span>
           </h2>
           <p className="text-sm text-white/60 leading-relaxed mt-2 max-w-md">
-            Heavyweight cotton. Gold-embroidered, hand-numbered 001–100. Three editions,
+            Heavyweight cotton. Gold-embroidered, hand-numbered 001–100. Two editions,
             never reissued. Inside details only the owner sees.
           </p>
         </div>
@@ -115,19 +115,13 @@ export default function ProductSelector() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-end justify-between">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-white/50">
-              Price
-            </span>
-            <span className="text-2xl sm:text-3xl text-white tracking-tight">€89</span>
-          </div>
           <a
-            href="#"
-            className="group inline-flex items-center justify-between gap-2 hover:gap-3 transition-all bg-white text-black font-medium text-sm sm:text-base rounded-full pl-5 pr-1.5 py-1.5 sm:py-2 mt-2"
+            href={active.shopUrl}
+            className="group inline-flex items-center justify-between gap-2 hover:gap-3 transition-all bg-white text-black font-medium text-sm sm:text-base rounded-full pl-5 pr-1.5 py-1.5 sm:py-2"
           >
             <span className="inline-flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" />
-              Buy the Golden Drop
+              Buy the Golden Drop — {active.name}
             </span>
             <span className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform group-hover:scale-110">
               <ArrowRight className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-white" />

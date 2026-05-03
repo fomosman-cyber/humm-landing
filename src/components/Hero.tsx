@@ -2,42 +2,80 @@ import { motion } from 'framer-motion'
 import { ShoppingBag } from 'lucide-react'
 import WordsPullUp from './WordsPullUp'
 
-const NAV_ITEMS: { label: string; href: string; external?: boolean }[] = [
-  { label: 'About', href: '#about' },
-  { label: 'The Drop', href: '#drop' },
-  { label: 'Contact', href: 'https://instagram.com/humm.amsterdam', external: true },
-  { label: 'Instagram', href: 'https://instagram.com/humm.amsterdam', external: true },
-]
+interface Props {
+  onOpenContact: () => void
+}
 
 const easeOut = [0.16, 1, 0.3, 1] as const
 
-export default function Hero() {
+export default function Hero({ onOpenContact }: Props) {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    if (target.startsWith('#')) {
+      e.preventDefault()
+      const el = document.querySelector(target)
+      el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   return (
     <section className="relative w-full flex flex-col items-center pt-6 pb-20 sm:pb-32">
-      <nav className="w-full max-w-7xl flex items-center justify-between px-2 mb-16 sm:mb-24">
-        <span className="text-white text-sm sm:text-base font-medium tracking-tight">
-          HUMM
-        </span>
-        <ul className="hidden md:flex items-center gap-8 lg:gap-12 text-xs">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.label}>
-              <a
-                href={item.href}
-                target={item.external ? '_blank' : undefined}
-                rel={item.external ? 'noreferrer noopener' : undefined}
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <nav className="w-full max-w-7xl flex items-center justify-between px-2 mb-16 sm:mb-24 text-white">
         <a
           href="#"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
+          className="text-sm sm:text-base font-medium tracking-tight"
+        >
+          HUMM
+        </a>
+        <ul className="hidden md:flex items-center gap-8 lg:gap-12 text-xs">
+          <li>
+            <a
+              href="#about"
+              onClick={(e) => handleNavClick(e, '#about')}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#drop"
+              onClick={(e) => handleNavClick(e, '#drop')}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              The Drop
+            </a>
+          </li>
+          <li>
+            <button
+              onClick={onOpenContact}
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Contact
+            </button>
+          </li>
+          <li>
+            <a
+              href="https://instagram.com/humm.amsterdam"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              Instagram
+            </a>
+          </li>
+        </ul>
+        <a
+          href="https://www.humm-amsterdam.nl/cart"
+          target="_blank"
+          rel="noreferrer noopener"
           className="inline-flex items-center gap-2 text-white/80 hover:text-white text-xs"
         >
           <ShoppingBag className="w-4 h-4" />
-          <span>Cart</span>
+          <span className="hidden sm:inline">Cart</span>
         </a>
       </nav>
 
@@ -51,9 +89,7 @@ export default function Hero() {
           The Golden 100 — Drop 2026
         </motion.span>
 
-        <h1
-          className="text-white font-medium leading-[0.85] tracking-[-0.05em] mt-4 text-[24vw] sm:text-[20vw] md:text-[18vw] lg:text-[16vw]"
-        >
+        <h1 className="text-white font-medium leading-[0.85] tracking-[-0.05em] mt-4 text-[24vw] sm:text-[20vw] md:text-[18vw] lg:text-[16vw]">
           <WordsPullUp text="HUMM" />
         </h1>
 

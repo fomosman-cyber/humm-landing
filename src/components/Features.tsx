@@ -60,7 +60,7 @@ function GlassFeatureCard({ index, number, title, Icon, items }: CardProps) {
 
 export default function Features() {
   return (
-    <section id="drop" className="relative w-full max-w-7xl px-4 sm:px-6 md:px-10 py-20 sm:py-28">
+    <section id="details" className="relative w-full max-w-7xl px-4 sm:px-6 md:px-10 py-20 sm:py-28 scroll-mt-20">
       <div className="text-center mb-12 sm:mb-16 md:mb-20 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-tight">
         <WordsPullUpMultiStyle
           segments={[{ text: 'Designed to be remembered.', className: 'text-white' }]}
@@ -89,11 +89,10 @@ export default function Features() {
         <GlassFeatureCard
           index={1}
           number="02"
-          title="Three Editions."
+          title="Two Editions."
           Icon={Palette}
           items={[
             { title: 'Crème', body: 'Soft, warm, foundational — the daylight cut.' },
-            { title: 'Olive', body: 'Earthy, understated, considered.' },
             { title: 'Black', body: 'Quiet, definitive, anchored.' },
           ]}
         />
