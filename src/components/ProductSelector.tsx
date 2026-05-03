@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, ShoppingBag } from 'lucide-react'
+import { createCheckoutForVariant, shopifyApiEnabled } from '../lib/shopify'
 
 type ColorKey = 'creme' | 'black'
 
@@ -10,6 +11,7 @@ interface ColorOption {
   swatch: string
   ring: string
   image: string
+  variantId?: string
   shopUrl: string
 }
 
@@ -33,6 +35,7 @@ const COLORS: ColorOption[] = [
     ring: '#DEDBC8',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/man-in-white-and-light-tan-outfit.jpg?v=1771012404&width=2731',
+    variantId: import.meta.env.VITE_SHOPIFY_VARIANT_CREME,
     shopUrl: buildShopUrl(
       import.meta.env.VITE_SHOPIFY_URL_CREME,
       import.meta.env.VITE_SHOPIFY_VARIANT_CREME,
@@ -46,6 +49,7 @@ const COLORS: ColorOption[] = [
     ring: '#5A5A5A',
     image:
       'https://www.humm-amsterdam.nl/cdn/shop/files/model-deep-in-thought.jpg?v=1771355823&width=2730',
+    variantId: import.meta.env.VITE_SHOPIFY_VARIANT_BLACK,
     shopUrl: buildShopUrl(
       import.meta.env.VITE_SHOPIFY_URL_BLACK,
       import.meta.env.VITE_SHOPIFY_VARIANT_BLACK,
@@ -58,7 +62,27 @@ const easeOut = [0.16, 1, 0.3, 1] as const
 
 export default function ProductSelector() {
   const [selected, setSelected] = useState<ColorKey>('creme')
+  const [buying, setBuying] = useState(false)
+  const [buyError, setBuyError] = useState<string | null>(null)
   const active = COLORS.find((c) => c.key === selected)!
+
+  const handleBuy = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!shopifyApiEnabled || !active.variantId) {
+      // Fall through to the regular href (cart-permalink or product page)
+      return
+    }
+    e.preventDefault()
+    setBuying(true)
+    setBuyError(null)
+    try {
+      const checkoutUrl = await createCheckoutForVariant(active.variantId)
+      window.location.href = checkoutUrl
+    } catch (err) {
+      console.error('[Shopify checkout]', err)
+      setBuyError('Could not start checkout. Try again or use the cart link.')
+      setBuying(false)
+    }
+  }
 
   return (
     <motion.section
@@ -133,19 +157,25 @@ export default function ProductSelector() {
         <div className="flex flex-col gap-3">
           <a
             href={active.shopUrl}
-            className="group inline-flex items-center justify-between gap-2 hover:gap-3 transition-all bg-white text-black font-medium text-sm sm:text-base rounded-full pl-5 pr-1.5 py-1.5 sm:py-2"
+            onClick={handleBuy}
+            aria-disabled={buying}
+            className="group inline-flex items-center justify-between gap-2 hover:gap-3 transition-all bg-white text-black font-medium text-sm sm:text-base rounded-full pl-5 pr-1.5 py-1.5 sm:py-2 disabled:opacity-60"
           >
             <span className="inline-flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" />
-              Buy the Golden Drop — {active.name}
+              {buying ? 'Opening checkout…' : `Buy the Golden Drop — ${active.name}`}
             </span>
             <span className="bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center transition-transform group-hover:scale-110">
               <ArrowRight className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-white" />
             </span>
           </a>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 text-center">
-            One per member · No bots · No resale
-          </p>
+          {buyError ? (
+            <p className="text-xs text-red-300/80 text-center">{buyError}</p>
+          ) : (
+            <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 text-center">
+              One per member · No bots · No resale
+            </p>
+          )}
         </div>
       </div>
     </motion.section>
