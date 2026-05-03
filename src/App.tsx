@@ -6,6 +6,8 @@ import Features from './components/Features'
 import Footer from './components/Footer'
 import ContactModal from './components/ContactModal'
 import LegalModal from './components/LegalModal'
+import CookieConsent from './components/CookieConsent'
+import NotifyForm from './components/NotifyForm'
 
 const VIDEO_URL =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260429_114316_1c7889ad-2885-410e-b493-98119fee0ddb.mp4'
@@ -142,6 +144,7 @@ export default function App() {
           <ProductSelector />
           <About />
           <Features />
+          <NotifyForm />
           <Footer
             onOpenContact={(subject) => setContact({ open: true, subject })}
             onOpenPrivacy={() => setPrivacyOpen(true)}
@@ -149,6 +152,8 @@ export default function App() {
           />
         </div>
       </main>
+
+      <CookieConsent onOpenPrivacy={() => setPrivacyOpen(true)} />
 
       <ContactModal
         open={contact.open}
