@@ -22,9 +22,16 @@ export default function Hero({ onOpenContact }: Props) {
       <nav className="w-full max-w-7xl flex items-center justify-between px-2 mb-16 sm:mb-24 text-white">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="text-sm sm:text-base font-medium tracking-tight"
+          className="inline-flex items-center gap-2 text-sm sm:text-base font-medium tracking-tight"
         >
-          HUMM
+          <img
+            src="/logo.png"
+            alt=""
+            aria-hidden="true"
+            className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
+            style={{ mixBlendMode: 'lighten' }}
+          />
+          <span>HUMM</span>
         </button>
         <ul className="hidden md:flex items-center gap-8 lg:gap-12 text-xs">
           <li>
