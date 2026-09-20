@@ -36,3 +36,34 @@ beweging van AI naar jouw echte gezicht. Slordig gedaan is het gewoon weer een c
 De AI-shots komen scherper en verzadigder terug dan je echte beelden. Zet ze
 **−4 saturatie** en **−6 clarity** ten opzichte van de rest — net iets ónder je
 eigen footage. Dat is wat de naad onzichtbaar maakt.
+
+---
+
+# UPDATE — de AI-shots zitten er nu in
+
+Ik heb de volledige montage in de Higgsfield-sandbox gebouwd (daar zijn de
+AI-clips wél bereikbaar). Resultaat: **38.2s**, 1080x1920, 27MB, mét de vier
+AI-shots én de Nederlandse ondertiteling.
+
+**Downloaden:**
+https://d2ol7oe51mr4n9.cloudfront.net/user_3BfUXjmjiY4KtMcuglo6PdrEcuE/20d173a2-1e06-4017-9157-b3f680a97964.mp4
+
+## Definitieve volgorde (38.2s)
+
+| Tijd | Duur | Wat |
+|---|---|---|
+| 0:00.00 | 1.20 | **AI-1 IGNITE** — koplampen gaan aan |
+| 0:01.20 | 0.70 | glitch cold open (hero-frame) |
+| 0:01.90 | 8.09 | **jouw praatclip — vol en onaangeraakt** + ondertiteling |
+| 0:09.99 | 2.20 | **AI-3 GOLDEN** — warme push-in |
+| 0:12.19 | 2.20 | titel HONDA CBR600RR / 2026 |
+| 0:14.39 | 6.20 | meet 0.5–6.7 |
+| 0:20.59 | 4.50 | meet 9.5–14.0 + zoom punch |
+| 0:25.09 | 1.40 | **AI-2 SPEED** — rijder scheert langs camera |
+| 0:26.49 | 3.30 | meet 17.4–20.7 + shake |
+| 0:29.79 | 1.40 | **AI-4 NIGHT** — stadsreflecties |
+| 0:31.19 | 4.10 | meet 21–25.1 **HERO** |
+| 0:35.29 | 2.57 | end frame @iamhummrider |
+
+Echte beelden: **24.2s van 38.2s (63%)**. AI: 6.2s. De AI-shots staan
+−4 saturatie / lichte unsharp onder je eigen footage zodat de naad wegvalt.
