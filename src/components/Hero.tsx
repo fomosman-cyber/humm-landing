@@ -53,15 +53,6 @@ export default function Hero({ onOpenContact }: Props) {
             </a>
           </li>
           <li>
-            <a
-              href="#spot"
-              onClick={(e) => handleNavClick(e, '#spot')}
-              className="text-white/70 hover:text-white transition-colors"
-            >
-              Spot the HUMM
-            </a>
-          </li>
-          <li>
             <button
               onClick={onOpenContact}
               className="text-white/70 hover:text-white transition-colors"

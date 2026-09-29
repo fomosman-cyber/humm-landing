@@ -32,7 +32,6 @@ export default function Footer({ onOpenContact, onOpenPrivacy, onOpenTerms }: Pr
         { label: 'Lookbook', href: 'https://instagram.com/humm.amsterdam', external: true },
         { label: 'Numbering 001–100', onClick: scrollTo('#details') },
         { label: 'Materials & Care', onClick: scrollTo('#details') },
-        { label: 'Spot the HUMM mobile', onClick: scrollTo('#spot') },
         { label: 'Future Drops', onClick: () => onOpenContact('HUMM — Future Drops') },
       ],
     },
