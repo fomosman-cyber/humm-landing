@@ -8,6 +8,7 @@ import ContactModal from './components/ContactModal'
 import LegalModal from './components/LegalModal'
 import CookieConsent from './components/CookieConsent'
 import NotifyForm from './components/NotifyForm'
+import SpotTheHumm from './components/SpotTheHumm'
 
 const VIDEO_URL =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260429_114316_1c7889ad-2885-410e-b493-98119fee0ddb.mp4'
@@ -90,6 +91,61 @@ const TERMS_BODY = (
   </>
 )
 
+const SPOT_RULES_BODY = (
+  <>
+    <p>
+      "Spot de HUMM-mobiel" is een actie van HUMM Amsterdam ("HUMM"). Door mee te doen
+      ga je akkoord met deze voorwaarden.
+    </p>
+    <h3>Looptijd</h3>
+    <p>De actie loopt van 30 september 2026 tot en met 31 oktober 2026, 23:59 uur.</p>
+    <h3>Zo doe je mee</h3>
+    <p>
+      Spot de witte HUMM BMW, maak een foto of video waarop het HUMM-logo te zien is en
+      deel die als post of story op Instagram. Tag @humm.amsterdam en gebruik
+      #SpotTheHUMM. Je account moet openbaar zijn zodat wij je inzending kunnen zien.
+      Meedoen is gratis en je hoeft niets te kopen.
+    </p>
+    <h3>Wie mag meedoen</h3>
+    <p>
+      Iedereen van 18 jaar of ouder die in Nederland woont. Medewerkers van HUMM en hun
+      huisgenoten zijn uitgesloten. Per persoon maak je één keer per week kans.
+    </p>
+    <h3>Veiligheid</h3>
+    <p>
+      Maak nooit foto's of video's terwijl je rijdt of fietst, volg de auto niet en
+      houd je aan de verkeersregels. Inzendingen die onveilig zijn gemaakt, tellen niet
+      mee.
+    </p>
+    <h3>De prijs</h3>
+    <p>
+      Elke week kiest HUMM één winnaar uit de geldige inzendingen van die week. De
+      winnaar krijgt een T-shirt van The Signal in de gewenste maat (zolang de voorraad
+      strekt). De prijs is niet inwisselbaar voor geld. Eventuele kansspelbelasting komt
+      voor rekening van HUMM.
+    </p>
+    <h3>Bekendmaking</h3>
+    <p>
+      Winnaars krijgen binnen 7 dagen een DM van het officiële account @humm.amsterdam.
+      Reageer je niet binnen 7 dagen, dan kiezen we een nieuwe winnaar. HUMM vraagt
+      nooit om betaalgegevens, wachtwoorden of een verzendvergoeding.
+    </p>
+    <h3>Jouw content</h3>
+    <p>
+      Door mee te doen geef je HUMM toestemming je inzending te delen op haar eigen
+      kanalen, altijd met vermelding van je naam of account.
+    </p>
+    <h3>Privacy & vragen</h3>
+    <p>
+      We gebruiken je gegevens alleen om de actie uit te voeren en de prijs te
+      versturen. Vragen of klachten? Mail{' '}
+      <a href="mailto:info@humm-amsterdam.nl">info@humm-amsterdam.nl</a>. HUMM houdt
+      zich aan de Gedragscode Promotionele Kansspelen. Instagram en Meta zijn niet
+      betrokken bij deze actie.
+    </p>
+  </>
+)
+
 export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [contact, setContact] = useState<{ open: boolean; subject?: string }>({
@@ -97,6 +153,7 @@ export default function App() {
   })
   const [privacyOpen, setPrivacyOpen] = useState(false)
   const [termsOpen, setTermsOpen] = useState(false)
+  const [spotRulesOpen, setSpotRulesOpen] = useState(false)
 
   // Mobile autoplay fallback: iOS Safari sometimes refuses muted autoplay until the
   // first user gesture. Try to play on mount, and again on first interaction.
@@ -144,6 +201,7 @@ export default function App() {
           <ProductSelector />
           <About />
           <Features />
+          <SpotTheHumm onOpenRules={() => setSpotRulesOpen(true)} />
           <NotifyForm />
           <Footer
             onOpenContact={(subject) => setContact({ open: true, subject })}
@@ -171,6 +229,12 @@ export default function App() {
         onClose={() => setTermsOpen(false)}
         title="Terms of Sale."
         body={TERMS_BODY}
+      />
+      <LegalModal
+        open={spotRulesOpen}
+        onClose={() => setSpotRulesOpen(false)}
+        title="Actievoorwaarden."
+        body={SPOT_RULES_BODY}
       />
     </>
   )
